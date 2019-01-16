@@ -1,0 +1,61 @@
+{% extends 'users/_base.html' %}
+
+{% block title %}<title>Issue Book</title>{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-5 content-section">
+
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4 text-primary">Member Details</legend>
+        <div class="col-sm-6">
+        <table class="table table-default">
+        <tr>	
+        <td>Name:&nbsp;{{ member.fname }}&nbsp;{{ member.sname }}</td>
+    	</tr>
+        <tr>
+        <td>School:&nbsp;{{ member.school }}</td>
+	    </tr>
+	    </table>
+	</div>       
+    </fieldset>
+    
+
+</div>
+
+<div class="col-sm-5 content-section" style="margin-left: 245px;">
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4 text-primary">Issue Book</legend>
+        {{ form }}
+    </fieldset>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+        <button type="reset" class="btn btn-outline-danger">Cancel</button>
+    </div>
+</form>
+
+</div>
+</div>
+
+<div class="col-sm-12 content-section">
+
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4 text-primary">Member Books</legend>
+        <div class="col-sm-6">
+        <table class="table table-default">
+        <tr>	
+        <td>Name:&nbsp;{{ member.fname }}&nbsp;{{ member.sname }}</td>
+    	</tr>
+        <tr>
+        <td>School:&nbsp;{{ member.school }}</td>
+	    </tr>
+	    </table>
+	</div>       
+    </fieldset>
+    
+</div>
+</div>
+{% endblock %}

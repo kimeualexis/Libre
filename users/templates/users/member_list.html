@@ -1,0 +1,26 @@
+{% extends 'users/_base.html' %}
+
+{% block title %}<title>members</title>{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	{% if members %}
+	<div class="content-section">
+		<table class="table table-default">
+		<thead>
+			<th>Number:</th>
+			<th>First Name:</th> <th>Last Name:</th> <th>DOB:</th> <th>School:</th>
+			<th>Level:</th> <th>Zone:</th> <th>Joined:</th> <th>Contact:</th><th>Action/Book:</th>
+			{% for m in members %}
+			<tr><td>{{ m.id }}</td> <td>{{ m.fname }}</td> <td>{{ m.sname }}</td>
+				<td>{{ m.dob|date:"F d, Y" }}</td>
+				<td>{{ m.school }}</td> <td>{{ m.level }}</td> <td>{{ m.zone }}</td> <td>{{ m.joined|date:"F d, Y" }}</td> <td>{{ m.contact }}</td><td><a href="{% url 'users:update-member' pk=m.pk %}"><button class="btn btn-outline-primary btn-sm">Update</button>&nbsp;<a href="{% url 'users:detail-member' m.id %}" class="btn btn-outline-success btn-sm">Details</button></td>
+			</tr>
+			{% endfor %}
+		</thead>
+	</table>
+	</div>
+	{% endif %}
+	</div>
+
+{% endblock %}
