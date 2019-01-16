@@ -27,15 +27,19 @@ class MemberUpdateView(UpdateView):
 
 
 
-def detail(request, member_id):
-    form = BookForm(request.POST or None, request.FILES or None)
-    member = get_object_or_404(Member, pk=member_id)
+def detail(request, m_id):
+    form = BookForm(request.POST)
+    member = get_object_or_404(Member, pk=m_id)
     if form.is_valid():
         book = form.save(commit=False)
         book.member = member
         book.save()
-    form = BookForm()
-    return render(request, 'users/member_detail.html', {'form': form, 'member': member})
+        return render(request, 'users/member_detail.html', {'form': form, 'member': member})
+    context = {
+        'member': member,
+        'form': form,
+    }
+    return render(request, 'users/member_detail.html', context)
 
     
 
