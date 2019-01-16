@@ -11,6 +11,7 @@ class Book(models.Model):
 	year = models.CharField(max_length=4)
 	isbn = ISBNField()
 	duration = models.DurationField()
+	returned = models.BooleanField(default=0)
 
 	def __str__(self):
 		return self.title
