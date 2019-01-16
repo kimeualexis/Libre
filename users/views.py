@@ -1,15 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Member
+from books.models import Book
 from books.forms import BookForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView
 
 
-class MemberListView(ListView):
+class MemberListView(LoginRequiredMixin,ListView):
 	model = Member
 	context_object_name = 'members'
 
 
-class MemberCreateView(CreateView):
+class MemberCreateView(LoginRequiredMixin, CreateView):
     model = Member
     fields = '__all__'
     
@@ -17,7 +19,7 @@ class MemberCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MemberUpdateView(UpdateView):
+class MemberUpdateView(LoginRequiredMixin, UpdateView):
     model = Member
 
     fields = ['fname', 'sname', 'dob', 'school', 'level', 'zone', 'contact']
@@ -41,7 +43,16 @@ def detail(request, m_id):
     }
     return render(request, 'users/member_detail.html', context)
 
-    
+
+class MemberBooksView(ListView):
+    model = Book
+    context_object_name = 'books'
+
+def user_returned(request, m_id):
+    member = get_object_or_404(Member, pk=m_id)
+    pending = Book.objects.get(returned=False, member=member)
+    return render(request, 'users/member_detail.html', {'pending': pending})
+
 
     
 

@@ -8,6 +8,9 @@
 <div class="row">
 
 <div class="col-sm-5 content-section">
+    {% if member.book_set.count > 2 %}
+        <div class="alert alert-danger"><h4 class="text text-center">Not Allowed To Borrow!</h4></div>
+    {% else %}
 <form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
@@ -19,12 +22,36 @@
         <button type="reset" class="btn btn-outline-danger">Cancel</button>
     </div>
 </form>
+    {% endif %}
 
 </div>
 
 <div class="col-sm-5 content-section" style="margin-left: 245px;">
     <fieldset class="form-group">
-        <legend class="border-bottom mb-4 text-primary">Member Books</legend>
+        <legend class="border-bottom mb-4 text-primary">{{ member.fname }} Books</legend>
+        {% if member.book_set %}
+            <table class="table table-default">
+                <thead>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Borrowed</th>
+                <th>Return?</th>
+                <th>Status</th>
+                </thead>
+            {% for book in member.book_set.all %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.borrowed|date:"F d, Y" }}</td>
+                    <td>Yes/No</td>
+
+                    <td>{% if book.returned is True %}Returned{% else %}Pending{% endif %}</td>
+                </tr>
+            {% endfor %}
+                </table>
+
+
+        {% endif %}
 
     </fieldset>
 

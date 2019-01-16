@@ -16,7 +16,7 @@
 				<td>{{ m.dob|date:"F d, Y" }}</td>
                 <td>{{ m.school }}</td> <td>{{ m.level }}</td> <td>{{ m.zone }}</td> <td>{{ m.joined|date:"F d, Y" }}</td> <td>{{ m.contact }}</td>
                 <td><a href="{% url 'users:update-member' pk=m.pk %}"><button class="btn btn-outline-primary btn-sm">Update</button></a>
-                <a href="{% url 'users:detail-member' m.id %}"> <button class="btn btn-outline-success btn-sm">Details</button></a></td>
+                <a href="{% url 'users:detail-member' m.id %}"> <button class="btn btn-outline-success btn-sm">Books</button></a></td>
 			</tr>
 			{% endfor %}
 		</thead>
